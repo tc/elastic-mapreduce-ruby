@@ -576,11 +576,7 @@ class UUID
         end
       end
       if @@mac_address != nil
-        if @@mac_address.respond_to?(:to_str)
-          @@mac_address = @@mac_address.to_str
-        else
-          @@mac_address = @@mac_address.to_s
-        end
+        @@mac_address = @@mac_address.to_s
         @@mac_address.downcase!
         @@mac_address.strip!
       end
