@@ -1,0 +1,21 @@
+= ChangeLog
+
+== 2010-04-07 Support for Bootstrap Actions
+
+* Added support for bootstrap actions including a new command line parameter
+  --bootstrap-action
+
+* Added some extra command line options such as --plain-output, --ssh, 
+  and --scp. The --ssh command now waits for the jobflow to be running
+  before contacting unless the --no-wait flag is passed.
+
+== 2010-05-27 Support for Hadoop 0.20 and Hive 0.5
+
+* Added support for specifying Hadoop version using --hadoop-version option.  
+  Hadoop 0.20 supports Hive 0.5 and Hadoop 0.18 supports Hive 0.4. The default
+  Hadoop version is 0.20. 
+
+* Added support for installing Hive using hive-script instead of directly 
+  installing a particular version of Hive.
+  
+* Added support for streaming arguments of Hadoop 0.20 (-files, -archives, -D).
