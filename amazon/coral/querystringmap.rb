@@ -45,7 +45,7 @@ class QueryStringMap < Hash
     return if obj.nil?
     
     case obj
-      when Hash:
+      when Hash then
 
         obj.each_pair { |k,v|
           stack.push(k)
@@ -53,7 +53,7 @@ class QueryStringMap < Hash
           stack.pop
         }
 
-      when Array:
+      when Array then
 
         # Do artificial list member wrapping (Coral requires this level of indirection, but doesn't validate the member name)
         stack.push("member")
