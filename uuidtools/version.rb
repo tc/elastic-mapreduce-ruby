@@ -23,9 +23,9 @@
 
 class UUID
   module UUID_TOOLS_VERSION #:nodoc:
-    MAJOR = 1
-    MINOR = 0
-    TINY  = 3
+    MAJOR = 2
+    MINOR = 1
+    TINY  = 2
 
     STRING = [MAJOR, MINOR, TINY].join('.')
   end

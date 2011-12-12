@@ -40,7 +40,7 @@ module Amazon
       # Invoke the remote service and return the result.
       def call(input = {})
         begin
-          @request_id = UUID.random_create if @request_id.nil?
+          @request_id = UUIDTools::UUID.random_create if @request_id.nil?
 
           return @dispatcher.dispatch(self, input)
         rescue Timeout::Error => timeout
