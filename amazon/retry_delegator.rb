@@ -48,7 +48,7 @@ module Amazon
       rescue Exception => e
         if retries_remaining > 0 && is_retry_exception(e) then
           if @log != nil then
-            @log.info "Exception #{e.to_str} while calling #{method} on #{@client.class}, retrying in #{@backoff_seconds * backoff_mult} seconds."
+            @log.info "Exception #{e.to_s} while calling #{method} on #{@client.class}, retrying in #{@backoff_seconds * backoff_mult} seconds."
           end
           sleep(@backoff_seconds * backoff_mult)
           backoff_mult *= 2
@@ -56,7 +56,7 @@ module Amazon
           retry
         else
           if @log != nil then
-            @log.info "Exception #{e.to_str} while calling #{method} on #{@client.class}, failing"
+            @log.info "Exception #{e.to_s} while calling #{method} on #{@client.class}, failing"
           end
           raise e
         end
