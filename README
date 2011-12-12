@@ -126,7 +126,7 @@ http://aws.amazon.com website under "Your Account/Access Identifiers"
     "private-key": "<insert your AWS secret access key here>",
     "key-pair": "<insert the name of your Amazon ec2 key-pair here>",
     "key-pair-file": "<insert the path to the .pem file for your Amazon ec2 key pair here>",
-    "region": "<The region where you wish to launch your job flows. Should be one of us-east-1, us-west-1 or eu-west-1>"    
+    "region": "<The region where you wish to launch your job flows. Should be one of us-east-1, us-west-1, us-west-2, eu-west-1, ap-southeast-1, or ap-northeast-1, sa-east-1>"    
   }
 
 Windows Users: If you are running a Windows computer then create a
@@ -213,7 +213,8 @@ supply the job flow id with the --jobflow parameters.
           "CreationDateTime": 1237947852.0,
           "LastStateChangeReason": null,
           "State": "COMPLETED",
-          "StartDateTime": 1237948085.0
+          "StartDateTime": 1237948085.0,
+          "ReadyDateTime": 1237948085.0
         },
         "Steps": [],
         "Instances": {
@@ -223,10 +224,13 @@ supply the job flow id with the --jobflow parameters.
             "AvailabilityZone": "us-east-1a"
           },
           "KeepJobFlowAliveWhenNoSteps": false,
+          "TerminationProtected": false,
           "MasterInstanceType": "m1.small",
           "SlaveInstanceType": "m1.small",
           "MasterPublicDnsName": "ec2-67-202-3-73.compute-1.amazonaws.com",
-          "MasterInstanceId": "i-39325750"
+          "MasterInstanceId": "i-39325750",
+          "NormalizedInstanceHours": 6,
+          "InstanceCount": 3
         },
         "JobFlowId": "j-3GJ4FRRNKGY97"
       }

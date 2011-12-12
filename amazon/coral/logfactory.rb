@@ -1,13 +1,12 @@
+#
+# Copyright 2008-2010 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+
 require 'logger'
 
 module Amazon
 module Coral
 
-#
 # A simple log retrieval interface to allow injection of common logging frameworks.
-#
-# Copyright:: Copyright (c) 2008 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
-#
 class LogFactory
 
   @@instance = LogFactory.new

@@ -28,7 +28,7 @@ require 'cgi'
 
 module JSON
 
-  VERSION = '1.1.2'
+  VERSION ||= '1.1.2'
   
   class Lexer
     # This method will initialize the lexer to contain a string.
