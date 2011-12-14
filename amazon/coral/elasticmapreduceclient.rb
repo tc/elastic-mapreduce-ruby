@@ -156,12 +156,7 @@ module Amazon
       # Example usage:
       #   my_output = my_client.DescribeJobFlows(my_input)
       def DescribeJobFlows(input = {})
-        output = newDescribeJobFlowsCall.call(input)
-        if output.empty?
-          "There are no jobs running."
-        else
-          output
-        end
+        newDescribeJobFlowsCall.call(input)
       end
 
       # Shorthand method to invoke the RunJobFlow operation:
