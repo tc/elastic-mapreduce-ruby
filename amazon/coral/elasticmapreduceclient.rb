@@ -34,6 +34,7 @@ module Amazon
         @describeJobFlowsDispatcher = Dispatcher.new(orchestrator, 'ElasticMapReduce', 'DescribeJobFlows')
         @runJobFlowDispatcher = Dispatcher.new(orchestrator, 'ElasticMapReduce', 'RunJobFlow')
         @modifyInstanceGroupsDispatcher = Dispatcher.new(orchestrator, 'ElasticMapReduce', 'ModifyInstanceGroups')
+        @setVisibleToAllUsersDispatcher = Dispatcher.new(orchestrator, 'ElasticMapReduce', 'SetVisibleToAllUsers')
       end
 
 
@@ -85,6 +86,11 @@ module Amazon
       # Instantiates a call object to invoke the SetTerminationProtection operation:
       def newSetTerminationProtectionCall
         Call.new(@setTerminationProtectionDispatcher)
+      end
+
+      # Instantiates a call object to invoke the SetVisibleToAllUsers operation:
+      def newSetVisibleToAllUsersCall
+        Call.new(@setVisibleToAllUsersDispatcher)
       end
 
       # Instantiates a call object to invoke the DescribeJobFlows operation:
@@ -151,6 +157,10 @@ module Amazon
         newSetTerminationProtectionCall.call(input)
       end
 
+      def SetVisibleToAllUsers(input = {})
+        newSetVisibleToAllUsersCall.call(input)
+      end
+
       # Shorthand method to invoke the DescribeJobFlows operation:
       #
       # Example usage:
@@ -191,7 +201,8 @@ module Amazon
                                                                 'SetTerminationProtection',
                                                                 'DescribeJobFlows',
                                                                 'RunJobFlow',
-                                                                'ModifyInstanceGroups'
+                                                                'ModifyInstanceGroups',
+                                                                'SetVisibleToAllUsers'
                                                                ]).main if caller.empty?
   end
 end

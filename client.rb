@@ -94,6 +94,13 @@ class EmrClient
     return raise_on_error(result)
   end
 
+  def set_visible_to_all_users(jobflow_ids, visible)
+    logger.trace "SetVisibleToAllUsers('JobFlowIds' => #{jobflow_ids.inspect}, 'VisibleToAllUsers' => #{visible})"
+    result = @client.SetVisibleToAllUsers('JobFlowIds' => jobflow_ids, 'VisibleToAllUsers' => visible)
+    logger.trace result.inspect
+    return raise_on_error(result)
+  end
+
   def terminate_jobflows(jobflow_ids)
     logger.trace "TerminateJobFlows('JobFlowIds' => #{jobflow_ids.inspect})"
     result = @client.TerminateJobFlows('JobFlowIds' => jobflow_ids)

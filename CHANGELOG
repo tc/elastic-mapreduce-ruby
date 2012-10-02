@@ -58,3 +58,4 @@
 * Fixed the Elastic IP code and associated --eip command line option which
   were broken by the last release.
 
+== 2012-06-12 Added Support for HBase and MapR.
