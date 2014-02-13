@@ -759,7 +759,7 @@ module Commands
   end
 
   class StreamStepCommand < StepCommand
-    attr_accessor :input, :output, :mapper, :cache, :cache_archive, :jobconf, :reducer, :args
+    attr_accessor :input, :output, :mapper, :cache, :cache_archive, :jobconf, :reducer, :args, :inputformat
 
     GENERIC_OPTIONS = Set.new(%w(-conf -D -fs -jt -files -libjars -archives))
 
@@ -802,7 +802,7 @@ module Commands
             "-output",    get_field(:output),
             "-mapper",    get_field(:mapper),
             "-reducer",   get_field(:reducer)
-          ]
+          ] + (get_field(:inputformat)?[ "-inputformat",   get_field(:inputformat) ]:[])
         }
       }
       return [ step ]
@@ -1873,6 +1873,7 @@ module Commands
       [ OptionWithArg, "--cache-archive CACHE_FILE",  "A file to unpack into the cache, e.g. s3n://mybucket/sample.jar", :cache_archive, ],
       [ OptionWithArg, "--jobconf KEY=VALUE",         "Specify jobconf arguments to pass to streaming, e.g. mapred.task.timeout=800000", :jobconf],
       [ OptionWithArg, "--reducer REDUCER",           "The reducer program or class", :reducer],
+      [ OptionWithArg, "--inputformat INPUTFORMAT",               "Input format to use, e.g. org.apache.hadoop.mapred.lib.NLineInputFormat", :inputformat],
     ])
 
     opts.separator "\n  Adding and Modifying Instance Groups\n"
