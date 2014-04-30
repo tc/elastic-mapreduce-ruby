@@ -1099,6 +1099,7 @@ module Commands
       super(*args)
       @instance_group_commands = []
       @bootstrap_commands = []
+      @supported_product_commands = []
     end
 
     def add_step_command(step)
@@ -1111,6 +1112,10 @@ module Commands
 
     def add_instance_group_command(instance_group_command)
       @instance_group_commands << instance_group_command
+    end
+
+    def add_supported_product_command(supported_product_command)
+      @supported_product_commands << supported_product_command
     end
 
     def validate
@@ -1267,6 +1272,23 @@ module Commands
     end
   end
 
+  class SupportedProductCommand < Command
+    attr_accessor :name, :args
+    
+    def initialize(*args)
+      super(*args)
+      @args = []
+    end
+
+    def supported_product()
+      product = {
+        "Name" => @arg,
+        "Args" => @args
+      }
+      return product 
+    end
+  end
+  
   class BootstrapActionCommand < Command
     attr_accessor :bootstrap_name, :args
 
@@ -1782,7 +1804,7 @@ module Commands
 
     opts.separator "\n  Passing arguments to steps\n"
     
-    commands.parse_options(step_commands + ["--bootstrap-action", "--stream"], [
+    commands.parse_options(step_commands + ["--bootstrap-action", "--stream", "--supported-product"], [
       [ ArgsOption,    "--args ARGS",                 "A command separated list of arguments to pass to the step" ],
       [ ArgOption,     "--arg ARG",                   "An argument to pass to the step" ],
       [ OptionWithArg, "--step-name STEP_NAME",       "Set name for the step", :step_name ],
@@ -1912,6 +1934,9 @@ module Commands
       [ GlobalOption, "--key-pair-file FILE_PATH",   "Path to your local pem file for your EC2 key pair", :key_pair_file ], 
     ])
 
+    opts.separator "\n  Specifying Supported Products\n"
+    commands.parse_command(SupportedProductCommand, "--supported-product NAME", "Install a supported product")
+
     opts.separator "\n  Specifying Bootstrap Actions\n"
 
     commands.parse_command(BootstrapActionCommand, "--bootstrap-action SCRIPT", "Run a bootstrap action script on all instances")
@@ -1993,6 +2018,7 @@ module Commands
     return is_step_command(cmd) || 
       is_ba_command(cmd) ||
       cmd.is_a?(AddInstanceGroupCommand) ||
+      cmd.is_a?(SupportedProductCommand) ||
       cmd.is_a?(CreateInstanceGroupCommand)
   end
 
@@ -2013,6 +2039,8 @@ module Commands
           elsif is_ba_command(cmd) then
             raise RuntimeError, "the option #{cmd.name} must come after the --create option"
           elsif cmd.is_a?(CreateInstanceGroupCommand) then
+            raise RuntimeError, "the option #{cmd.name} must come after the --create option"
+         elsif cmd.is_a?(SupportedProductCommand) then
             raise RuntimeError, "the option #{cmd.name} must come after the --create option"
           elsif cmd.is_a?(AddInstanceGroupCommand) then
             new_commands << cmd
@@ -2037,6 +2065,10 @@ module Commands
             raise RuntimeError, "Bootstrap actions must follow a --create command"
           end
           last_create_command.add_bootstrap_command(cmd)
+          actioned = true
+        end
+        if cmd.is_a?(SupportedProductCommand) then
+          last_create_command.add_supported_product_command(cmd)
           actioned = true
         end
         if cmd.is_a?(CreateInstanceGroupCommand) || cmd.is_a?(AddInstanceGroupCommand) then
