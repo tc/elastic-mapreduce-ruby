@@ -838,7 +838,7 @@ module Commands
 
     def initialize(*args)
       super(*args)
-      @ssh_opts = ["-o ServerAliveInterval=10", "-o StrictHostKeyChecking=no"]
+      @ssh_opts = ["-o IdentitiesOnly=yes -o ServerAliveInterval=10", "-o StrictHostKeyChecking=no"]
       @scp_opts = ["-r", "-o StrictHostKeyChecking=no"]
     end  
 
